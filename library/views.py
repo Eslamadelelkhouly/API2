@@ -5,13 +5,15 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
 from django.http import JsonResponse
+from .models import *
+from .serializers import *
 
 # Create your views here.
 @api_view(['GET','Post'])
 def UserList (request):     # for all users
     if request.method == 'GET':
         users = User.objects.all() # queury 
-        serializer = UserSerializer(users, many = True)
+        serializer = UserSerializers(users, many = True)
         return Response(serializer.data)
     elif request.method == 'Post':
         serializer = UserSerializer(data= request.data)
